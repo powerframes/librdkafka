@@ -1319,9 +1319,10 @@ int rd_kafka_ssl_ctx_init (rd_kafka_t *rk, char *errstr, size_t errstr_size) {
                      "librdkafka built with %sOpenSSL version 0x%lx",
                      linking, OPENSSL_VERSION_NUMBER);
 #endif
-
+        /* errstr[0] assignation leading to a memory leaking error
         if (errstr_size > 0)
                 errstr[0] = '\0';
+        */
 
         ctx = SSL_CTX_new(SSLv23_client_method());
         if (!ctx) {
